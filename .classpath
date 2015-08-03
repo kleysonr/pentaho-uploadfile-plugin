@@ -136,7 +136,6 @@
 	<classpathentry kind="lib" path="D:/BI_5_4_0/biserver-ce-5.4.0.0-128/biserver-ce/tomcat/webapps/pentaho/WEB-INF/lib/icu4j-charset-54.1.1.jar"/>
 	<classpathentry kind="lib" path="D:/BI_5_4_0/biserver-ce-5.4.0.0-128/biserver-ce/tomcat/webapps/pentaho/WEB-INF/lib/infobright-core-3.4.jar"/>
 	<classpathentry kind="lib" path="D:/BI_5_4_0/biserver-ce-5.4.0.0-128/biserver-ce/tomcat/webapps/pentaho/WEB-INF/lib/ini4j-0.5.1.jar"/>
-	<classpathentry kind="lib" path="D:/BI_5_4_0/biserver-ce-5.4.0.0-128/biserver-ce/tomcat/webapps/pentaho/WEB-INF/lib/integrator-0.1.0.jar"/>
 	<classpathentry kind="lib" path="D:/BI_5_4_0/biserver-ce-5.4.0.0-128/biserver-ce/tomcat/webapps/pentaho/WEB-INF/lib/itext-2.1.7.jar"/>
 	<classpathentry kind="lib" path="D:/BI_5_4_0/biserver-ce-5.4.0.0-128/biserver-ce/tomcat/webapps/pentaho/WEB-INF/lib/itext-rtf-2.1.7.jar"/>
 	<classpathentry kind="lib" path="D:/BI_5_4_0/biserver-ce-5.4.0.0-128/biserver-ce/tomcat/webapps/pentaho/WEB-INF/lib/jackcess-1.2.6.jar"/>
