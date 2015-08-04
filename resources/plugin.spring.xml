@@ -19,7 +19,7 @@
         	<value>
           		<![CDATA[
 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-\A/plugin/uploadfile/api.*\Z=Admin,Uploader
+\A/plugin/uploadfile/api.*\Z=Anonymous,Authenticated
 \A/.*\Z=Authenticated
 				]]>
         	</value>
@@ -30,7 +30,7 @@ CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
     <bean id="api" class="org.pentaho.platform.web.servlet.JAXRSPluginServlet"/>
     <bean id="uploadfile.api" class="br.gov.go.saude.pentaho.uploadfile.ws.UploadFileREST"/>
     
-    
+    <!-- Plugin init process by BeanFactoryPostProcessor -->
 	<bean class="org.pentaho.platform.engine.core.system.objfac.spring.ApplicationContextPentahoSystemRegisterer" scope="singleton"/>
     <bean id="uploadfileTemplateFactory" class="br.gov.go.saude.pentaho.uploadfile.engine.UploadfileTemplateFactory">
     	<pen:publish as-type="CLASSES">
