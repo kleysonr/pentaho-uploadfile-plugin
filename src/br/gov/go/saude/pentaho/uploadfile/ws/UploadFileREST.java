@@ -32,13 +32,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 import org.pentaho.platform.api.engine.IPluginManager;
+import org.pentaho.platform.api.engine.PluginBeanException;
 import org.pentaho.platform.engine.core.system.PentahoSessionHolder;
 import org.pentaho.platform.engine.core.system.PentahoSystem;
 
+import br.gov.go.saude.pentaho.uploadfile.engine.PluginConfig;
 import br.gov.go.saude.pentaho.uploadfile.models.Output;
 import br.gov.go.saude.pentaho.uploadfile.util.FileSystem;
 import br.gov.go.saude.pentaho.uploadfile.util.Tokens;
 import br.gov.go.saude.pentaho.uploadfile.util.TokensList;
+import br.gov.go.saude.security.crypt.AESencrp;
 
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
@@ -63,6 +66,7 @@ public class UploadFileREST {
 			@FormDataParam("file") FormDataContentDisposition fileDetail,
 			@FormDataParam("prefix") String prefix, 
 			@FormDataParam("solution") String solution, 
+			@FormDataParam("encSolution") String encSolution,	// Define if the solution parameter is encrypted by AES algorithm 
 			@FormDataParam("description") String description, 
 			@FormDataParam("newExt") String newExt) {
 		
@@ -71,7 +75,7 @@ public class UploadFileREST {
 			response.setHeader("Access-Control-Allow-Credentials", "true");
 
 			Output output = new Output();			
-		
+			
 			// No file selected
 			if ( "".equalsIgnoreCase(fileDetail.getFileName())  || fileDetail.getFileName() == null ) 
 			{
@@ -94,6 +98,10 @@ public class UploadFileREST {
 				// If type/token/urlEncoded are defined, first do an authentication using the integrator
 				try 
 				{
+					// Decrypt solution
+					if ( (encSolution != null) && (encSolution.length() > 0) ) solution = AESencrp.decrypt(solution, PluginConfig.props.getProperty("AES.secret.key"));
+					
+					// Authentication by Integrator
 					if ( !("".equalsIgnoreCase(myType)) && !(myType == null) && !("undefined".equalsIgnoreCase(myType)) && !("".equalsIgnoreCase(myToken)) && !(myToken == null) && !("undefined".equalsIgnoreCase(myToken)) && !("".equalsIgnoreCase(myUrlEncoded)) && !(myUrlEncoded == null) && !("undefined".equalsIgnoreCase(myUrlEncoded)) )
 					{
 						// Integrator Authenticate method by reflection
@@ -132,12 +140,19 @@ public class UploadFileREST {
 						output.setError_message("UploadFile: Error.");
 					}
 				} 
+				catch (PluginBeanException e)
+				{
+					e.printStackTrace();
+					output.setMessage("Integrator plugin not found.");
+					output.setError(true);
+					output.setError_message("UploadFile: Error.");
+				}
 				catch (Exception e) 
 				{
 					e.printStackTrace();
-					output.setMessage("UploadFile: Internal Server Error.");
+					output.setMessage(e.getMessage());
 					output.setError(true);
-					output.setError_message(e.getMessage());
+					output.setError_message("UploadFile: Internal Server Error.");
 				}
 			}
 			
