@@ -20,7 +20,7 @@ import org.pentaho.platform.engine.core.system.PentahoSystem;
 
 public class PluginConfig {
     
-    public final static String PLUGIN_NAME = "integrator";
+    public final static String PLUGIN_NAME = "uploadfile";
     public final static String PLUGIN_PATH = PentahoSystem.getApplicationContext().getSolutionPath("system" + File.separator + PLUGIN_NAME);
     public final static Properties props = new Properties();
     
@@ -48,12 +48,12 @@ public class PluginConfig {
     {
         try 
         {
-        	InputStream in = new FileInputStream(PLUGIN_PATH + File.separator + "integrator.properties");
+        	InputStream in = new FileInputStream(PLUGIN_PATH + File.separator + "uploadfile.properties");
             props.load(in);
         } 
         catch (IOException e) 
         {
-        	System.out.println("INTEGRATOR_PLUGIN: Missing integrator.properties file.");
+        	System.out.println("UPLOADFILES_PLUGIN: Missing uploadfile.properties file.");
 			e.printStackTrace();
 		}
     }
